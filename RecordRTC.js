@@ -1,6 +1,6 @@
 'use strict';
 
-// Last time updated: 2021-03-09 3:20:22 AM UTC
+// Last time updated: 2021-12-03 7:03:58 AM UTC
 
 // ________________
 // RecordRTC v5.6.2
@@ -5164,7 +5164,22 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
             height = video.stream.height;
         }
 
-        context.drawImage(video, x, y, width, height);
+		// keep the aspect of the videos
+        var tracks = video.stream.getVideoTracks();
+        var settings = tracks && tracks[0] ? tracks[0].getSettings() : {aspectRatio:1};
+
+        if (settings.aspectRatio > 1) {
+            var imageW = width;
+            var imageH = width / settings.aspectRatio;
+        }
+        else {
+            var imageW = height * settings.aspectRatio;
+            var imageH = height;
+        }
+        var imageX = x + (width - imageW) / 2;
+        var imageY = y + (height - imageH) / 2;
+
+        context.drawImage(video, imageX, imageY, imageW, imageH);
 
         if (typeof video.stream.onRender === 'function') {
             video.stream.onRender(context, x, y, width, height, idx);
