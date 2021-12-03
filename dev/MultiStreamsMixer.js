@@ -221,6 +221,7 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
 
         var fullcanvas = false;
         var remaining = [];
+        var skipremaining = false;
         videos.forEach(function(video) {
             if (!video.stream) {
                 video.stream = {};
@@ -228,6 +229,9 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
 
             if (video.stream.fullcanvas) {
                 fullcanvas = video;
+                if (video.stream.fullcanvas.skipremaining) {
+                    skipremaining = true;
+                }
             } else {
                 // todo: video.stream.active or video.stream.live to fix blank frames issues?
                 remaining.push(video);
@@ -235,6 +239,9 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
         });
 
         if (fullcanvas) {
+            if (skipremaining) {
+                remaining = [];
+            }
             canvas.width = fullcanvas.stream.width;
             canvas.height = fullcanvas.stream.height;
         } else if (remaining.length) {
@@ -327,15 +334,16 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
             height = video.stream.height;
         }
 
-		// keep the aspect of the videos
+        // keep the aspect of the videos
         var tracks = video.stream.getVideoTracks();
-        var settings = tracks && tracks[0] ? tracks[0].getSettings() : {aspectRatio:1};
+        var settings = tracks && tracks[0] ? tracks[0].getSettings() : {
+            aspectRatio: 1
+        };
 
         if (settings.aspectRatio > 1) {
             var imageW = width;
             var imageH = width / settings.aspectRatio;
-        }
-        else {
+        } else {
             var imageW = height * settings.aspectRatio;
             var imageH = height;
         }
