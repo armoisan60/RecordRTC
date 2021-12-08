@@ -327,16 +327,21 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
             height = video.stream.height;
         }
 
-		// keep the aspect of the videos
-        var tracks = video.stream.getVideoTracks();
-        var settings = tracks && tracks[0] ? tracks[0].getSettings() : {aspectRatio:1};
 
-        if (settings.aspectRatio > 1) {
-            var imageW = width;
-            var imageH = width / settings.aspectRatio;
+        if (video.videoWidth && video.videoHeight) {
+            var aspectRatio = video.videoWidth / video.videoHeight;
+        } else {
+            var aspectRatio = 1;
         }
-        else {
-            var imageW = height * settings.aspectRatio;
+
+        if (aspectRatio === 1) {
+            var imageW = width;
+            var imageH = height;
+        } else if (aspectRatio > 1) {
+            var imageW = width;
+            var imageH = width / aspectRatio;
+        } else {
+            var imageW = height * aspectRatio;
             var imageH = height;
         }
         var imageX = x + (width - imageW) / 2;
