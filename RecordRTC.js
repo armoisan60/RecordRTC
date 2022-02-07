@@ -1,6 +1,6 @@
 'use strict';
 
-// Last time updated: 2021-12-03 6:14:21 PM UTC
+// Last time updated: 2022-02-07 1:42:26 PM UTC
 
 // ________________
 // RecordRTC v5.6.2
@@ -5045,6 +5045,15 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
         }
     }
 
+    function pause() {
+        isStopDrawingFrames = true;
+    }
+
+    function resume() {
+        isStopDrawingFrames = false;
+        drawVideosToCanvas();
+    }
+
     this.startDrawingFrames = function() {
         drawVideosToCanvas();
     };
@@ -5171,17 +5180,21 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
             height = video.stream.height;
         }
 
-        // keep the aspect of the videos
-        var tracks = video.stream.getVideoTracks();
-        var settings = tracks && tracks[0] ? tracks[0].getSettings() : {
-            aspectRatio: 1
-        };
 
-        if (settings.aspectRatio > 1) {
-            var imageW = width;
-            var imageH = width / settings.aspectRatio;
+        if (video.videoWidth && video.videoHeight) {
+            var aspectRatio = video.videoWidth / video.videoHeight;
         } else {
-            var imageW = height * settings.aspectRatio;
+            var aspectRatio = 1;
+        }
+
+        if (aspectRatio === 1) {
+            var imageW = width;
+            var imageH = height;
+        } else if (aspectRatio > 1) {
+            var imageW = width;
+            var imageH = width / aspectRatio;
+        } else {
+            var imageW = height * aspectRatio;
             var imageH = height;
         }
         var imageX = x + (width - imageW) / 2;
@@ -5191,6 +5204,18 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
 
         if (typeof video.stream.onRender === 'function') {
             video.stream.onRender(context, x, y, width, height, idx);
+        } else if (typeof video.stream.onImageRender === 'function') {
+            video.stream.onImageRender(context, {
+                context: context,
+                x: x,
+                y: y,
+                width: width,
+                height: height,
+                imageX: imageX,
+                imageY: imageY,
+                imageW: imageW,
+                imageH: imageH
+            }, idx);
         }
     }
 
@@ -5567,9 +5592,14 @@ function MultiStreamRecorder(arrayOfMediaStreams, options) {
      * @example
      * recorder.pause();
      */
-    this.pause = function() {
+    this.pause = function(props) {
+        if (mixer && typeof mixer.pause === 'function') {
+            mixer.pause(props);
+        }
         if (mediaRecorder) {
-            mediaRecorder.pause();
+            setTimeout(function() {
+                mediaRecorder.pause();
+            }, props.delay ? props.delay : 1);
         }
     };
 
@@ -5581,6 +5611,9 @@ function MultiStreamRecorder(arrayOfMediaStreams, options) {
      * recorder.resume();
      */
     this.resume = function() {
+        if (mixer && typeof mixer.resume === 'function') {
+            mixer.resume();
+        }
         if (mediaRecorder) {
             mediaRecorder.resume();
         }
