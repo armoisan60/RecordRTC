@@ -129,9 +129,14 @@ function MultiStreamRecorder(arrayOfMediaStreams, options) {
      * @example
      * recorder.pause();
      */
-    this.pause = function() {
+    this.pause = function(props) {
+        if (mixer && typeof mixer.pause === 'function') {
+            mixer.pause(props);
+        }
         if (mediaRecorder) {
-            mediaRecorder.pause();
+            setTimeout(function() {
+                mediaRecorder.pause();
+            }, props.delay ? props.delay : 1);
         }
     };
 
@@ -143,6 +148,9 @@ function MultiStreamRecorder(arrayOfMediaStreams, options) {
      * recorder.resume();
      */
     this.resume = function() {
+        if (mixer && typeof mixer.resume === 'function') {
+            mixer.resume();
+        }
         if (mediaRecorder) {
             mediaRecorder.resume();
         }
