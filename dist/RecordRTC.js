@@ -1,110 +1,9 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define("RecordRTC", [], factory);
-	else if(typeof exports === 'object')
-		exports["RecordRTC"] = factory();
-	else
-		root["RecordRTC"] = factory();
-})(window, function() {
-return /******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+'use strict';
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global, process) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
-
-// Last time updated: 2020-07-30 11:26:25 AM UTC
+// Last time updated: 2022-02-07 1:28:49 PM UTC
 
 // ________________
-// RecordRTC v5.6.1
+// RecordRTC v5.6.2
 
 // Open-Sourced: https://github.com/muaz-khan/RecordRTC
 
@@ -882,7 +781,7 @@ function RecordRTC(mediaStream, config) {
          * @example
          * alert(recorder.version);
          */
-        version: '5.6.1'
+        version: '5.6.2'
     };
 
     if (!this) {
@@ -900,17 +799,16 @@ function RecordRTC(mediaStream, config) {
     return returnObject;
 }
 
-RecordRTC.version = '5.6.1';
+RecordRTC.version = '5.6.2';
 
-if (true /* && !!module.exports*/ ) {
+if (typeof module !== 'undefined' /* && !!module.exports*/ ) {
     module.exports = RecordRTC;
 }
 
-if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function() {
+if (typeof define === 'function' && define.amd) {
+    define('RecordRTC', [], function() {
         return RecordRTC;
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    });
 }
 
 RecordRTC.getFromDisk = function(type, callback) {
@@ -1917,7 +1815,10 @@ function invokeSaveAsDialog(file, fileName) {
     }
 
     var fileExtension = (file.type || 'video/webm').split('/')[1];
-
+    if (fileExtension.indexOf(';') !== -1) {
+        // extended mimetype, e.g. 'video/webm;codecs=vp8,opus'
+        fileExtension = fileExtension.split(';')[0];
+    }
     if (fileName && fileName.indexOf('.') !== -1) {
         var splitted = fileName.split('.');
         fileName = splitted[0];
@@ -2858,7 +2759,7 @@ function StereoAudioRecorder(mediaStream, config) {
             view.setUint32(24, sampleRate, true);
 
             // byte rate (sample rate * block align)
-            view.setUint32(28, sampleRate * 2, true);
+            view.setUint32(28, sampleRate * numberOfAudioChannels * 2, true);
 
             // block align (channel count * bytes per sample) 
             view.setUint16(32, numberOfAudioChannels * 2, true);
@@ -5144,6 +5045,15 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
         }
     }
 
+	function pause() {
+		isStopDrawingFrames = true;
+	}
+
+	function resume() {
+		isStopDrawingFrames = false;
+		drawVideosToCanvas();
+	}
+
     this.startDrawingFrames = function() {
         drawVideosToCanvas();
     };
@@ -5157,6 +5067,7 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
 
         var fullcanvas = false;
         var remaining = [];
+        var skipremaining = false;
         videos.forEach(function(video) {
             if (!video.stream) {
                 video.stream = {};
@@ -5164,6 +5075,9 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
 
             if (video.stream.fullcanvas) {
                 fullcanvas = video;
+                if (video.stream.fullcanvas.skipremaining) {
+                    skipremaining = true;
+                }
             } else {
                 // todo: video.stream.active or video.stream.live to fix blank frames issues?
                 remaining.push(video);
@@ -5171,6 +5085,9 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
         });
 
         if (fullcanvas) {
+            if (skipremaining) {
+                remaining = [];
+            }
             canvas.width = fullcanvas.stream.width;
             canvas.height = fullcanvas.stream.height;
         } else if (remaining.length) {
@@ -5263,11 +5180,44 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
             height = video.stream.height;
         }
 
-        context.drawImage(video, x, y, width, height);
+
+        if (video.videoWidth && video.videoHeight) {
+            var aspectRatio = video.videoWidth / video.videoHeight;
+        } else {
+            var aspectRatio = 1;
+        }
+
+        if (aspectRatio === 1) {
+            var imageW = width;
+            var imageH = height;
+        } else if (aspectRatio > 1) {
+            var imageW = width;
+            var imageH = width / aspectRatio;
+        } else {
+            var imageW = height * aspectRatio;
+            var imageH = height;
+        }
+        var imageX = x + (width - imageW) / 2;
+        var imageY = y + (height - imageH) / 2;
+
+        context.drawImage(video, imageX, imageY, imageW, imageH);
 
         if (typeof video.stream.onRender === 'function') {
             video.stream.onRender(context, x, y, width, height, idx);
         }
+		else if (typeof video.stream.onImageRender === 'function') {
+            video.stream.onImageRender(context, {
+				context:context, 
+				x:x, 
+				y:y, 
+				width:width, 
+				height:height,
+				imageX:imageX,
+				imageY:imageY,
+				imageW:imageW,
+				imageH:imageH
+			}, idx);
+		}
     }
 
     function getMixedStream() {
@@ -5501,15 +5451,14 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
 }
 
 if (typeof RecordRTC === 'undefined') {
-    if (true /* && !!module.exports*/ ) {
+    if (typeof module !== 'undefined' /* && !!module.exports*/ ) {
         module.exports = MultiStreamsMixer;
     }
 
-    if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function() {
+    if (typeof define === 'function' && define.amd) {
+        define('MultiStreamsMixer', [], function() {
             return MultiStreamsMixer;
-        }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+        });
     }
 }
 
@@ -5644,9 +5593,14 @@ function MultiStreamRecorder(arrayOfMediaStreams, options) {
      * @example
      * recorder.pause();
      */
-    this.pause = function() {
+    this.pause = function(props) {
+		if (mixer && typeof mixer.pause === 'function') {
+			mixer.pause(props);
+		}
         if (mediaRecorder) {
-            mediaRecorder.pause();
+			setTimeout(function() {
+	            mediaRecorder.pause();
+			}, props.delay ? props.delay : 1);
         }
     };
 
@@ -5658,6 +5612,9 @@ function MultiStreamRecorder(arrayOfMediaStreams, options) {
      * recorder.resume();
      */
     this.resume = function() {
+		if (mixer && typeof mixer.resume === 'function') {
+			mixer.resume();
+		}
         if (mediaRecorder) {
             mediaRecorder.resume();
         }
@@ -6027,7 +5984,7 @@ function RecordRTCPromisesHandler(mediaStream, options) {
      * @example
      * alert(recorder.version);
      */
-    this.version = '5.6.1';
+    this.version = '5.6.2';
 }
 
 if (typeof RecordRTC !== 'undefined') {
@@ -6309,225 +6266,3 @@ function WebAssemblyRecorder(stream, config) {
 if (typeof RecordRTC !== 'undefined') {
     RecordRTC.WebAssemblyRecorder = WebAssemblyRecorder;
 }
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(2)))
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-
-/***/ })
-/******/ ]);
-});
