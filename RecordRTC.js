@@ -1,6 +1,6 @@
 'use strict';
 
-// Last time updated: 2022-02-07 1:28:49 PM UTC
+// Last time updated: 2022-02-08 3:59:57 PM UTC
 
 // ________________
 // RecordRTC v5.6.2
@@ -5045,14 +5045,17 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
         }
     }
 
-	function pause() {
-		isStopDrawingFrames = true;
-	}
+    this.pause = function(props) {
+        isStopDrawingFrames = true;
+        if (props && typeof props.callback === 'function') {
+            props.callback(context);
+        }
+    };
 
-	function resume() {
-		isStopDrawingFrames = false;
-		drawVideosToCanvas();
-	}
+    this.resume = function() {
+        isStopDrawingFrames = false;
+        drawVideosToCanvas();
+    };
 
     this.startDrawingFrames = function() {
         drawVideosToCanvas();
@@ -5181,7 +5184,7 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
         }
 
 
-        if (video.videoWidth && video.videoHeight) {
+        if (typeof video.stream.fullcanvas === 'undefined' && video.videoWidth && video.videoHeight) {
             var aspectRatio = video.videoWidth / video.videoHeight;
         } else {
             var aspectRatio = 1;
@@ -5204,20 +5207,19 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
 
         if (typeof video.stream.onRender === 'function') {
             video.stream.onRender(context, x, y, width, height, idx);
-        }
-		else if (typeof video.stream.onImageRender === 'function') {
+        } else if (typeof video.stream.onImageRender === 'function') {
             video.stream.onImageRender(context, {
-				context:context, 
-				x:x, 
-				y:y, 
-				width:width, 
-				height:height,
-				imageX:imageX,
-				imageY:imageY,
-				imageW:imageW,
-				imageH:imageH
-			}, idx);
-		}
+                context: context,
+                x: x,
+                y: y,
+                width: width,
+                height: height,
+                imageX: imageX,
+                imageY: imageY,
+                imageW: imageW,
+                imageH: imageH
+            }, idx);
+        }
     }
 
     function getMixedStream() {
@@ -5594,13 +5596,13 @@ function MultiStreamRecorder(arrayOfMediaStreams, options) {
      * recorder.pause();
      */
     this.pause = function(props) {
-		if (mixer && typeof mixer.pause === 'function') {
-			mixer.pause(props);
-		}
+        if (mixer && typeof mixer.pause === 'function') {
+            mixer.pause(props);
+        }
         if (mediaRecorder) {
-			setTimeout(function() {
-	            mediaRecorder.pause();
-			}, props.delay ? props.delay : 1);
+            setTimeout(function() {
+                mediaRecorder.pause();
+            }, props.delay ? props.delay : 1);
         }
     };
 
@@ -5612,9 +5614,9 @@ function MultiStreamRecorder(arrayOfMediaStreams, options) {
      * recorder.resume();
      */
     this.resume = function() {
-		if (mixer && typeof mixer.resume === 'function') {
-			mixer.resume();
-		}
+        if (mixer && typeof mixer.resume === 'function') {
+            mixer.resume();
+        }
         if (mediaRecorder) {
             mediaRecorder.resume();
         }
