@@ -1,6 +1,6 @@
 'use strict';
 
-// Last time updated: 2022-02-07 1:42:26 PM UTC
+// Last time updated: 2022-02-08 3:49:17 PM UTC
 
 // ________________
 // RecordRTC v5.6.2
@@ -5045,14 +5045,17 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
         }
     }
 
-    function pause() {
+    this.pause = function(props) {
         isStopDrawingFrames = true;
-    }
+        if (props && typeof props.callback === 'function') {
+            props.callback(context);
+        }
+    };
 
-    function resume() {
+    this.resume = function() {
         isStopDrawingFrames = false;
         drawVideosToCanvas();
-    }
+    };
 
     this.startDrawingFrames = function() {
         drawVideosToCanvas();
@@ -5181,7 +5184,7 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
         }
 
 
-        if (video.videoWidth && video.videoHeight) {
+        if (typeof video.stream.fullcanvas === 'undefined' && video.videoWidth && video.videoHeight) {
             var aspectRatio = video.videoWidth / video.videoHeight;
         } else {
             var aspectRatio = 1;

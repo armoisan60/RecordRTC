@@ -208,14 +208,17 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
         }
     }
 
-    function pause() {
+    this.pause = function(props) {
         isStopDrawingFrames = true;
-    }
+        if (props && typeof props.callback === 'function') {
+            props.callback(context);
+        }
+    };
 
-    function resume() {
+    this.resume = function() {
         isStopDrawingFrames = false;
         drawVideosToCanvas();
-    }
+    };
 
     this.startDrawingFrames = function() {
         drawVideosToCanvas();
@@ -344,7 +347,7 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
         }
 
 
-        if (video.videoWidth && video.videoHeight) {
+        if (typeof video.stream.fullcanvas === 'undefined' && video.videoWidth && video.videoHeight) {
             var aspectRatio = video.videoWidth / video.videoHeight;
         } else {
             var aspectRatio = 1;
